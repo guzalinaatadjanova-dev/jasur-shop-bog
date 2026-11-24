@@ -35,6 +35,7 @@ TYPES = {
     "pdf": "📘 PDF kitob",
     "channel": "🔒 Yopiq kanal",
     "consult": "💬 Konsultatsiya",
+    "bundle": "📚 To'plam",
 }
 
 
@@ -60,6 +61,10 @@ def init_db():
             product_id INTEGER, status TEXT, created TEXT);
         CREATE TABLE IF NOT EXISTS users(id INTEGER PRIMARY KEY, joined TEXT);
         """)
+        cols = {r["name"] for r in c.execute("PRAGMA table_info(products)")}
+        for col in ("sample_file_id", "bundle_ids"):
+            if col not in cols:
+                c.execute(f"ALTER TABLE products ADD COLUMN {col} TEXT")
 
 
 def get_setting(key):
@@ -103,6 +108,7 @@ def admin_kb():
     b = InlineKeyboardBuilder()
     b.button(text="➕ Mahsulot qo'shish", callback_data="a:add")
     b.button(text="📋 Mahsulotlar", callback_data="a:list")
+    b.button(text="🔗 Instagram havolalari", callback_data="a:links")
     b.button(text="📊 Statistika", callback_data="a:stats")
     b.adjust(1)
     return b.as_markup()
@@ -119,6 +125,12 @@ class Add(StatesGroup):
     description = State()
     price = State()
     payload = State()
+    sample = State()
+    bundle = State()
+
+
+class AddSample(StatesGroup):
+    waiting = State()
 
 
 # ---------------- Mijoz qismi ----------------
@@ -132,6 +144,15 @@ async def start(m: Message, state: FSMContext):
     if admin_id() is None and (m.from_user.username or "").lower() == ADMIN_USERNAME:
         set_setting("admin_id", m.from_user.id)
         await m.answer("✅ Siz admin sifatida ro'yxatga olindingiz.\nBoshqaruv paneli: /admin")
+
+    # Instagram'dan to'g'ridan-to'g'ri mahsulotga: t.me/<bot>?start=p3
+    arg = (m.text or "").split(maxsplit=1)
+    if len(arg) == 2 and arg[1].startswith("p") and arg[1][1:].isdigit():
+        p = get_product(int(arg[1][1:]))
+        if p:
+            text, kb = product_view(p)
+            await m.answer(text, reply_markup=kb)
+            return
 
     kb, count = catalog_kb()
     if count == 0:
@@ -149,21 +170,64 @@ async def back_catalog(cq: CallbackQuery, state: FSMContext):
     await cq.message.edit_text("Mahsulotni tanlang:", reply_markup=kb)
 
 
+def get_product(pid, active_only=True):
+    with db() as c:
+        q = "SELECT * FROM products WHERE id=?" + (" AND active=1" if active_only else "")
+        return c.execute(q, (pid,)).fetchone()
+
+
+def bundle_items(p):
+    ids = [int(x) for x in (p["bundle_ids"] or "").split(",") if x.strip().isdigit()]
+    if not ids:
+        return []
+    with db() as c:
+        rows = c.execute(f"SELECT * FROM products WHERE id IN ({','.join('?' * len(ids))})", ids).fetchall()
+    return rows
+
+
+def product_view(p):
+    pid = p["id"]
+    extra = ""
+    if p["type"] == "bundle":
+        items = bundle_items(p)
+        if items:
+            full = sum(i["price"] for i in items)
+            extra = "\n\n📚 Ichida:\n" + "\n".join(f"• {i['title']}" for i in items)
+            if full > p["price"]:
+                extra += f"\n\nAlohida olinsa: <s>{money(full)}</s>"
+    b = InlineKeyboardBuilder()
+    if p["sample_file_id"]:
+        b.button(text="📖 Bepul parchani o'qish", callback_data=f"s:{pid}")
+    b.button(text="🛒 Sotib olish", callback_data=f"buy:{pid}")
+    b.button(text="⬅️ Barcha mahsulotlar", callback_data="catalog")
+    b.adjust(1)
+    text = (f"<b>{p['title']}</b>\n{TYPES.get(p['type'], '')}\n\n{p['description']}{extra}"
+            f"\n\n💰 Narxi: <b>{money(p['price'])}</b>")
+    return text, b.as_markup()
+
+
 @router.callback_query(F.data.startswith("p:"))
 async def show_product(cq: CallbackQuery):
-    pid = int(cq.data[2:])
-    with db() as c:
-        p = c.execute("SELECT * FROM products WHERE id=? AND active=1", (pid,)).fetchone()
+    p = get_product(int(cq.data[2:]))
     if not p:
         await cq.answer("Bu mahsulot endi mavjud emas", show_alert=True)
         return
+    text, kb = product_view(p)
+    await cq.message.edit_text(text, reply_markup=kb)
+
+
+@router.callback_query(F.data.startswith("s:"))
+async def send_sample(cq: CallbackQuery, bot: Bot):
+    p = get_product(int(cq.data[2:]))
+    if not p or not p["sample_file_id"]:
+        await cq.answer("Parcha topilmadi", show_alert=True)
+        return
+    await cq.answer()
     b = InlineKeyboardBuilder()
-    b.button(text="🛒 Sotib olish", callback_data=f"buy:{pid}")
-    b.button(text="⬅️ Orqaga", callback_data="catalog")
-    b.adjust(1)
-    await cq.message.edit_text(
-        f"<b>{p['title']}</b>\n{TYPES[p['type']]}\n\n{p['description']}\n\n💰 Narxi: <b>{money(p['price'])}</b>",
-        reply_markup=b.as_markup())
+    b.button(text="🛒 To'liq kitobni olish", callback_data=f"buy:{p['id']}")
+    await bot.send_document(cq.from_user.id, p["sample_file_id"],
+                            caption=f"📖 «{p['title']}» bepul parchasi. O'qib chiqing, yoqsa to'liq kitob shu yerda.",
+                            reply_markup=b.as_markup())
 
 
 @router.callback_query(F.data.startswith("buy:"))
@@ -229,6 +293,11 @@ async def deliver(bot: Bot, order, product):
     if t == "pdf":
         await bot.send_message(uid, "🎉 To'lov tasdiqlandi! Mana sizning kitobingiz:")
         await bot.send_document(uid, product["file_id"], caption=product["title"])
+    elif t == "bundle":
+        await bot.send_message(uid, "🎉 To'lov tasdiqlandi! Mana sizning kitoblaringiz:")
+        for i in bundle_items(product):
+            if i["file_id"]:
+                await bot.send_document(uid, i["file_id"], caption=i["title"])
     elif t == "channel":
         link = await bot.create_chat_invite_link(product["channel_id"], member_limit=1,
                                                  name=f"order-{order['id']}")
@@ -309,9 +378,45 @@ async def list_products(cq: CallbackQuery):
         return
     b = InlineKeyboardBuilder()
     for p in rows:
-        b.button(text=f"🗑 {p['title']} ({money(p['price'])})", callback_data=f"del:{p['id']}")
+        mark = "✅" if p["sample_file_id"] else "➕"
+        b.button(text=f"{mark} Parcha · {p['title']}", callback_data=f"ps:{p['id']}")
+        b.button(text=f"🗑 O'chirish · {p['title']}", callback_data=f"del:{p['id']}")
     b.adjust(1)
-    await cq.message.answer("O'chirish uchun mahsulotni bosing:", reply_markup=b.as_markup())
+    await cq.message.answer("Har mahsulot uchun: bepul parcha qo'shish/almashtirish yoki o'chirish.\n"
+                            "✅ parcha bor, ➕ parcha yo'q.", reply_markup=b.as_markup())
+    await cq.answer()
+
+
+@router.callback_query(F.data.startswith("ps:"))
+async def sample_start(cq: CallbackQuery, state: FSMContext):
+    if not is_admin(cq.from_user):
+        return
+    await state.set_state(AddSample.waiting)
+    await state.update_data(pid=int(cq.data[3:]))
+    await cq.message.answer("Bepul parcha PDF faylini yuboring:")
+    await cq.answer()
+
+
+@router.message(AddSample.waiting, F.document)
+async def sample_got(m: Message, state: FSMContext):
+    pid = (await state.get_data())["pid"]
+    with db() as c:
+        c.execute("UPDATE products SET sample_file_id=? WHERE id=?", (m.document.file_id, pid))
+    await state.clear()
+    await m.answer("✅ Parcha saqlandi.", reply_markup=admin_kb())
+
+
+@router.callback_query(F.data == "a:links")
+async def links(cq: CallbackQuery, bot: Bot):
+    if not is_admin(cq.from_user):
+        return
+    me = await bot.get_me()
+    with db() as c:
+        rows = c.execute("SELECT * FROM products WHERE active=1 ORDER BY id").fetchall()
+    lines = [f"Umumiy: https://t.me/{me.username}"]
+    lines += [f"{p['title']}: https://t.me/{me.username}?start=p{p['id']}" for p in rows]
+    await cq.message.answer("🔗 Instagram bio va reels uchun havolalar:\n\n" + "\n".join(lines),
+                            disable_web_page_preview=True)
     await cq.answer()
 
 
@@ -370,6 +475,10 @@ async def add_price(m: Message, state: FSMContext):
     if t == "pdf":
         await state.set_state(Add.payload)
         await m.answer("Endi PDF faylni shu yerga yuboring:")
+    elif t == "bundle":
+        await state.set_state(Add.bundle)
+        await state.update_data(picked=[])
+        await m.answer("To'plamga kiradigan kitoblarni tanlang:", reply_markup=bundle_kb([]))
     elif t == "channel":
         await state.set_state(Add.payload)
         await m.answer("1) Botni yopiq kanalga <b>admin</b> qiling (\"Foydalanuvchilarni taklif qilish\" huquqi bilan).\n"
@@ -383,7 +492,54 @@ async def add_pdf(m: Message, state: FSMContext):
     if (await state.get_data())["type"] != "pdf":
         return
     await state.update_data(file_id=m.document.file_id)
+    await state.set_state(Add.sample)
+    b = InlineKeyboardBuilder()
+    b.button(text="⏭ Parchasiz saqlash", callback_data="nosample")
+    await m.answer("Endi <b>bepul parcha</b> PDF faylini yuboring (mijoz sotib olishdan oldin o'qiydi).",
+                   reply_markup=b.as_markup())
+
+
+@router.message(Add.sample, F.document)
+async def add_sample(m: Message, state: FSMContext):
+    await state.update_data(sample_file_id=m.document.file_id)
     await save_product(m, state)
+
+
+@router.callback_query(Add.sample, F.data == "nosample")
+async def add_nosample(cq: CallbackQuery, state: FSMContext):
+    await cq.answer()
+    await save_product(cq.message, state)
+
+
+def bundle_kb(picked):
+    with db() as c:
+        rows = c.execute("SELECT * FROM products WHERE active=1 AND type='pdf' ORDER BY id").fetchall()
+    b = InlineKeyboardBuilder()
+    for p in rows:
+        mark = "✅" if p["id"] in picked else "⬜"
+        b.button(text=f"{mark} {p['title']}", callback_data=f"bp:{p['id']}")
+    b.button(text="💾 Tayyor", callback_data="bp:done")
+    b.adjust(1)
+    return b.as_markup()
+
+
+@router.callback_query(Add.bundle, F.data.startswith("bp:"))
+async def bundle_pick(cq: CallbackQuery, state: FSMContext):
+    picked = (await state.get_data()).get("picked", [])
+    v = cq.data[3:]
+    if v == "done":
+        if not picked:
+            await cq.answer("Kamida bitta kitob tanlang", show_alert=True)
+            return
+        await state.update_data(bundle_ids=",".join(map(str, picked)))
+        await cq.answer()
+        await save_product(cq.message, state)
+        return
+    pid = int(v)
+    picked = [x for x in picked if x != pid] if pid in picked else picked + [pid]
+    await state.update_data(picked=picked)
+    await cq.message.edit_reply_markup(reply_markup=bundle_kb(picked))
+    await cq.answer()
 
 
 @router.message(Add.payload, F.forward_origin)
@@ -414,8 +570,10 @@ async def add_payload_wrong(m: Message, state: FSMContext):
 async def save_product(m: Message, state: FSMContext):
     d = await state.get_data()
     with db() as c:
-        c.execute("INSERT INTO products(type,title,description,price,file_id,channel_id) VALUES(?,?,?,?,?,?)",
-                  (d["type"], d["title"], d["description"], d["price"], d.get("file_id"), d.get("channel_id")))
+        c.execute("INSERT INTO products(type,title,description,price,file_id,channel_id,sample_file_id,bundle_ids) "
+                  "VALUES(?,?,?,?,?,?,?,?)",
+                  (d["type"], d["title"], d["description"], d["price"], d.get("file_id"), d.get("channel_id"),
+                   d.get("sample_file_id"), d.get("bundle_ids")))
     await state.clear()
     await m.answer(f"✅ Qo'shildi: <b>{d['title']}</b> — {money(d['price'])}", reply_markup=admin_kb())
 
