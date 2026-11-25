@@ -5,6 +5,7 @@ Sotuv: rasmli katalog, bepul parchalar, aksiya narxi, to'plam, eslatmalar, test.
 """
 import asyncio
 import html
+import json
 import logging
 import os
 import sqlite3
@@ -38,6 +39,8 @@ BUNDLE_PRICE = int(os.getenv("BUNDLE_PRICE", "149000"))
 BUNDLE_PROMO = int(os.getenv("BUNDLE_PROMO", "119000"))
 PROMO_UNTIL = datetime.fromisoformat(os.getenv("PROMO_UNTIL", "2026-11-30T23:59")).replace(tzinfo=TZ)
 ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+CHANNEL = os.getenv("CHANNEL", "@insonlab")
+CHANNEL_POSTS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "channel_posts.json")
 
 logging.basicConfig(level=logging.INFO)
 router = Router()
@@ -356,6 +359,48 @@ async def send_followup(bot, r):
             "👋 Hali kitob tanlamadingizmi?\n\nHar bir kitobning boshini bepul o'qish mumkin, "
             "hech narsa to'lamaysiz. Yoki 1 savolga javob bering, sizga mosini tavsiya qilaman."),
             reply_markup=b.as_markup())
+
+
+# ---------------- Kanalga rejalashtirilgan postlar ----------------
+async def channel_loop(bot: Bot):
+    """channel_posts.json dagi postlarni vaqti kelganda kanalga joylaydi (o'sha kun ichida kechiksa ham)."""
+    warned = False
+    while True:
+        try:
+            with open(CHANNEL_POSTS, encoding="utf-8") as f:
+                posts = json.load(f)
+            t = now()
+            for p in posts:
+                at = datetime.fromisoformat(p["at"]).replace(tzinfo=TZ)
+                key = f"chpost:{p['id']}"
+                if at > t or at.date() != t.date() or get_setting(key):
+                    continue
+                kb = None
+                if p.get("url"):
+                    b = InlineKeyboardBuilder()
+                    b.button(text=p["btn"], url=p["url"])
+                    kb = b.as_markup()
+                try:
+                    if p.get("img"):
+                        await bot.send_photo(CHANNEL, FSInputFile(os.path.join(ASSETS, "channel", p["img"])),
+                                             caption=p["text"], reply_markup=kb)
+                    else:
+                        await bot.send_message(CHANNEL, p["text"], reply_markup=kb, disable_web_page_preview=True)
+                    set_setting(key, t.isoformat())
+                    logging.info("Kanalga joylandi: %s", p["id"])
+                except Exception as e:
+                    logging.warning("Kanalga joylab bo'lmadi %s: %s", p["id"], e)
+                    if not warned and admin_id():
+                        warned = True
+                        try:
+                            await bot.send_message(admin_id(), "⚠️ Kanalga post joylab bo'lmadi. @insonlabbot'ni "
+                                                   f"{CHANNEL} kanaliga admin qiling («Xabar joylash» huquqi bilan).\n\n{html.escape(str(e))}")
+                        except Exception:
+                            pass
+                    break
+        except Exception:
+            logging.exception("channel_loop")
+        await asyncio.sleep(60)
 
 
 # ---------------- Mijoz: start va katalog ----------------
@@ -940,6 +985,7 @@ async def main():
     dp.include_router(router)
     await bot.delete_webhook(drop_pending_updates=False)
     asyncio.create_task(followup_loop(bot))
+    asyncio.create_task(channel_loop(bot))
     await dp.start_polling(bot)
 
 
