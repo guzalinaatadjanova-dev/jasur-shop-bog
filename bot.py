@@ -299,6 +299,8 @@ def cancel_plans(uid, kinds=None):
 async def followup_loop(bot: Bot):
     while True:
         try:
+            if get_setting("desc_promo") not in (None, str(int(promo_on()))):
+                await setup_profile(bot)
             with db() as c:
                 rows = c.execute("SELECT * FROM followups WHERE done=0 AND due<=?", (now().isoformat(),)).fetchall()
                 for r in rows:
@@ -978,12 +980,30 @@ async def fallback(m: Message, bot: Bot):
     await send_asset_photo(bot, m.chat.id, "welcome.jpg", welcome_text(m.from_user.first_name), books_kb())
 
 
+BOT_DESCRIPTION_TPL = '📚 inson.lab kitob do‘koni\n\nPsixologiyani mish-mishdan emas, haqiqiy tadqiqotlardan o‘rganing. 5 ta elektron kitob (PDF):\n\n🧵 Ko‘rinmas iplar — manipulyatsiyadan himoya\n❤️ Yurak algoritmi — sevgi ilmi\n👁 Indamas til — tana tili\n🎯 Ta’sir kodi — halol ishontirish\n💸 Pul miyasi — pul psixologiyasi\n\n🎁 Har kitobning boshi BEPUL — avval o‘qing, yoqsa oling.\n{PROMO}👇 Boshlash uchun «START» ni bosing'
+BOT_SHORT = '📚 inson.lab: psixologiya bo‘yicha 5 ta elektron kitob. Boshi bepul. Bepul parcha uchun START bosing.'
+
+
+async def setup_profile(bot: Bot):
+    """Start bosilishidan oldin ko'rinadigan matn (description) va profil qisqa tavsifi."""
+    try:
+        promo = (f"🔥 Aksiya {promo_date()}gacha: {money(PROMO_PRICE)}\n\n" if promo_on() else "")
+        await bot.set_my_description(BOT_DESCRIPTION_TPL.replace("{PROMO}", promo))
+        set_setting("desc_promo", int(promo_on()))
+        await bot.set_my_short_description(BOT_SHORT)
+        from aiogram.types import BotCommand
+        await bot.set_my_commands([BotCommand(command="start", description="Kitoblar va bepul parcha")])
+    except Exception as e:
+        logging.warning("Bot profilini sozlab bo'lmadi: %s", e)
+
+
 async def main():
     init_db()
     bot = Bot(BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=MemoryStorage())
     dp.include_router(router)
     await bot.delete_webhook(drop_pending_updates=False)
+    await setup_profile(bot)
     asyncio.create_task(followup_loop(bot))
     asyncio.create_task(channel_loop(bot))
     await dp.start_polling(bot)
