@@ -83,6 +83,25 @@ BOOKS = [
     },
 ]
 
+BOOKS.append({
+    "slug": "b6", "file": "06_Marketing_xaritasi", "title": "Marketing xaritasi",
+    "short": "biznes uchun marketing reja", "pages": 41, "emoji": "🗺", "price": 69000,
+    "pain": "Biznesimga mijoz kam, marketingim tartibsiz",
+    "hook": "Butun marketingingiz bitta sahifaga sig'masa, u hali reja emas.",
+    "about": ("Kichik biznes uchun bir sahifalik marketing reja: kimga sotish, nima deyish, mijozni "
+              "qanday topish va qaytarish. 12 bob, 20+ tadqiqot, to'ldiriladigan xarita shabloni "
+              "va 30 kunlik ishga tushirish rejasi."),
+    "bullets": [
+        "Nega «hammaga» sotish hech kimga sotmaslik degani",
+        "Kam tanlov — ko'p sotuv: murabbo tajribasi",
+        "Narx psixologiyasi: langar, aldov varianti va «9»",
+        "Lidga 1 soat ichida javob berish nega 7 baravar samaraliroq",
+        "1 sahifalik marketing xaritasi + 30 kunlik reja",
+    ],
+})
+
+PSY = [b for b in BOOKS if not b.get("price")]
+
 BUNDLE = {
     "slug": "all", "title": "5 kitob to'plami", "emoji": "🔥",
     "hook": "Insonni to'liq tushunish uchun hammasi bitta joyda.",

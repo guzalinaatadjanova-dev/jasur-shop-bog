@@ -24,7 +24,8 @@ from aiogram.types import (CallbackQuery, FSInputFile, InlineKeyboardButton,
                            ReplyKeyboardMarkup)
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from catalog import BOOKS, BUNDLE, BY_SLUG
+from catalog import BOOKS, BUNDLE, BY_SLUG, PSY
+PSY_SLUGS = {b['slug'] for b in PSY}
 
 # ---------------- Sozlamalar (Railway Variables) ----------------
 BOT_TOKEN = os.environ["BOT_TOKEN"]
@@ -67,12 +68,16 @@ def money(n):
 
 
 def slug_price(slug):
+    if BY_SLUG.get(slug, {}).get("price"):
+        return BY_SLUG[slug]["price"]
     if slug == "all":
         return BUNDLE_PROMO if promo_on() else BUNDLE_PRICE
     return PROMO_PRICE if promo_on() else PRICE
 
 
 def price_line(slug):
+    if BY_SLUG.get(slug, {}).get("price"):
+        return f"💰 Narxi: <b>{money(BY_SLUG[slug]['price'])}</b>"
     full = BUNDLE_PRICE if slug == "all" else PRICE
     if promo_on():
         return f"💰 <s>{money(full)}</s> → <b>{money(slug_price(slug))}</b>\n⏳ Aksiya {promo_date()}gacha"
@@ -171,7 +176,7 @@ def get_product(pid, active_only=True):
 
 def bundle_items(p):
     if p["slug"] == "all":
-        return [by_slug(b["slug"]) for b in BOOKS]
+        return [by_slug(b["slug"]) for b in PSY]
     ids = [int(x) for x in (p["bundle_ids"] or "").split(",") if x.strip().isdigit()]
     if not ids:
         return []
@@ -241,7 +246,8 @@ def book_kb(slug):
     b = InlineKeyboardBuilder()
     b.button(text=f"🛒 Sotib olish — {money(slug_price(slug))}", callback_data=f"buy:{slug}")
     b.button(text="📖 Bepul parchani o'qish", callback_data=f"smp:{slug}")
-    b.button(text=f"🔥 5 tasi birga — {money(slug_price('all'))}", callback_data="v:all")
+    if slug in PSY_SLUGS:
+        b.button(text=f"🔥 5 tasi birga — {money(slug_price('all'))}", callback_data="v:all")
     b.button(text="⬅️ Barcha kitoblar", callback_data="books")
     b.adjust(1)
     return b.as_markup()
@@ -323,15 +329,16 @@ async def send_followup(bot, r):
     b = InlineKeyboardBuilder()
     if kind == "sample1" and bk:
         b.button(text=f"🛒 To'liq kitob — {money(slug_price(slug))}", callback_data=f"buy:{slug}")
-        b.button(text=f"🔥 5 tasi birga — {money(slug_price('all'))}", callback_data="v:all")
+        if slug in PSY_SLUGS:
+            b.button(text=f"🔥 5 tasi birga — {money(slug_price('all'))}", callback_data="v:all")
         b.adjust(1)
-        promo = f"\n\n⏳ Aksiya narxi {promo_date()}gacha." if promo_on() else ""
+        promo = f"\n\n⏳ Aksiya narxi {promo_date()}gacha." if promo_on() and slug in PSY_SLUGS else ""
         await bot.send_message(uid, (
             f"📖 «{bk['title']}» parchasini o'qib chiqdingizmi?\n\n"
             f"Parcha — kitobning faqat boshi. To'liq kitobda {bk['pages']} bet: barcha boblar, "
             f"mashqlar va tayyor qoidalar.\n\nYoqqan bo'lsa, davomi shu yerda 👇{promo}"),
             reply_markup=b.as_markup())
-    elif kind == "sample2" and bk and promo_on():
+    elif kind == "sample2" and bk and promo_on() and slug in PSY_SLUGS:
         b.button(text=f"🛒 Hozir olish — {money(slug_price(slug))}", callback_data=f"buy:{slug}")
         b.button(text="📚 Barcha kitoblar", callback_data="books")
         b.adjust(1)
@@ -407,7 +414,8 @@ async def channel_loop(bot: Bot):
 
 # ---------------- Mijoz: start va katalog ----------------
 def welcome_text(name):
-    lines = "\n".join(f"{b['emoji']} <b>{b['title']}</b> — {b['short']}" for b in BOOKS)
+    lines = "\n".join(f"{b['emoji']} <b>{b['title']}</b> — {b['short']}" for b in PSY)
+    lines += "\n\n💼 <b>Biznes uchun:</b>\n" + "\n".join(f"{b['emoji']} <b>{b['title']}</b> — {b['short']}" for b in BOOKS if b not in PSY)
     promo = (f"\n\n🔥 <b>Ochilish aksiyasi {promo_date()}gacha:</b>\n"
              f"bitta kitob <s>{money(PRICE)}</s> → <b>{money(PROMO_PRICE)}</b>\n"
              f"5 tasi birga <s>{money(BUNDLE_PRICE)}</s> → <b>{money(BUNDLE_PROMO)}</b>") if promo_on() else ""
@@ -459,7 +467,7 @@ async def start(m: Message, state: FSMContext, bot: Bot):
 
 async def show_slug(bot, chat_id, slug):
     if slug == "all":
-        lines = "\n".join(f"{b['emoji']} {b['title']} — {b['short']} ({b['pages']} bet)" for b in BOOKS)
+        lines = "\n".join(f"{b['emoji']} {b['title']} — {b['short']} ({b['pages']} bet)" for b in PSY)
         b = InlineKeyboardBuilder()
         b.button(text=f"🛒 5 tasini olish — {money(slug_price('all'))}", callback_data="buy:all")
         b.button(text="🎁 Avval bepul parcha", callback_data="free")
@@ -467,7 +475,7 @@ async def show_slug(bot, chat_id, slug):
         b.adjust(1)
         each = slug_price("all") // 5
         cap = (f"🔥 <b>{BUNDLE['title']}</b>\n{BUNDLE['hook']}\n\n{lines}\n\n"
-               f"📱 5 ta elektron kitob (PDF) · jami {sum(b['pages'] for b in BOOKS)} bet · 120+ tadqiqot\n"
+               f"📱 5 ta elektron kitob (PDF) · jami {sum(b['pages'] for b in PSY)} bet · 120+ tadqiqot\n"
                f"Alohida olinsa: <s>{money(slug_price('b1') * 5)}</s>\n"
                f"{price_line('all')}\n✅ Bitta kitob ~{money(each)} ga tushadi")
         await send_asset_photo(bot, chat_id, "bundle.jpg", cap, b.as_markup())
@@ -606,7 +614,7 @@ async def buy(cq: CallbackQuery, state: FSMContext):
     await state.set_state(Buy.waiting_screenshot)
     await state.update_data(product_id=p["id"], amount=amount)
     b = InlineKeyboardBuilder()
-    if p["slug"] and p["slug"] != "all":
+    if p["slug"] in PSY_SLUGS:
         extra = slug_price("all") - amount
         b.button(text=f"🔥 Yana {money(extra)} qo'shib, 5 tasini olish", callback_data="buy:all")
     b.button(text="❌ Bekor qilish", callback_data="cancel")
@@ -980,8 +988,8 @@ async def fallback(m: Message, bot: Bot):
     await send_asset_photo(bot, m.chat.id, "welcome.jpg", welcome_text(m.from_user.first_name), books_kb())
 
 
-BOT_DESCRIPTION_TPL = '📚 inson.lab kitob do‘koni\n\nPsixologiyani mish-mishdan emas, haqiqiy tadqiqotlardan o‘rganing. 5 ta elektron kitob (PDF):\n\n🧵 Ko‘rinmas iplar — manipulyatsiyadan himoya\n❤️ Yurak algoritmi — sevgi ilmi\n👁 Indamas til — tana tili\n🎯 Ta’sir kodi — halol ishontirish\n💸 Pul miyasi — pul psixologiyasi\n\n🎁 Har kitobning boshi BEPUL — avval o‘qing, yoqsa oling.\n{PROMO}👇 Boshlash uchun «START» ni bosing'
-BOT_SHORT = '📚 inson.lab: psixologiya bo‘yicha 5 ta elektron kitob. Boshi bepul. Bepul parcha uchun START bosing.'
+BOT_DESCRIPTION_TPL = '📚 inson.lab kitob do‘koni\n\nPsixologiyani mish-mishdan emas, haqiqiy tadqiqotlardan o‘rganing. 6 ta elektron kitob (PDF):\n\n🧵 Ko‘rinmas iplar — manipulyatsiyadan himoya\n❤️ Yurak algoritmi — sevgi ilmi\n👁 Indamas til — tana tili\n🎯 Ta’sir kodi — halol ishontirish\n💸 Pul miyasi — pul psixologiyasi\n🗺 Marketing xaritasi — biznes uchun\n\n🎁 Har kitobning boshi BEPUL — avval o‘qing, yoqsa oling.\n{PROMO}👇 Boshlash uchun «START» ni bosing'
+BOT_SHORT = '📚 inson.lab: psixologiya va marketing bo‘yicha 6 ta elektron kitob. Boshi bepul. Bepul parcha uchun START bosing.'
 
 
 async def setup_profile(bot: Bot):
