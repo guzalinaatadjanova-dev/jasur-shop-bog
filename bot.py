@@ -335,7 +335,7 @@ async def send_followup(bot, r):
         promo = f"\n\n⏳ Aksiya narxi {promo_date()}gacha." if promo_on() and slug in PSY_SLUGS else ""
         await bot.send_message(uid, (
             f"📖 «{bk['title']}» parchasini o'qib chiqdingizmi?\n\n"
-            f"Parcha — kitobning faqat boshi. To'liq kitobda {bk['pages']} bet: barcha boblar, "
+            f"Siz kitobning 2 ta bobini o'qidingiz. To'liq kitobda {bk['pages']} bet: barcha boblar, "
             f"mashqlar va tayyor qoidalar.\n\nYoqqan bo'lsa, davomi shu yerda 👇{promo}"),
             reply_markup=b.as_markup())
     elif kind == "sample2" and bk and promo_on() and slug in PSY_SLUGS:
@@ -365,7 +365,7 @@ async def send_followup(bot, r):
         b.button(text="🧭 Qaysi biri menga mos?", callback_data="quiz")
         b.adjust(1)
         await bot.send_message(uid, (
-            "👋 Hali kitob tanlamadingizmi?\n\nHar bir kitobning boshini bepul o'qish mumkin, "
+            "👋 Hali kitob tanlamadingizmi?\n\nHar bir kitobning mundarijasi va 2 ta bobini bepul o'qib ko'rishingiz mumkin, "
             "hech narsa to'lamaysiz. Yoki 1 savolga javob bering, sizga mosini tavsiya qilaman."),
             reply_markup=b.as_markup())
 
@@ -422,7 +422,7 @@ def welcome_text(name):
     return (f"Assalomu alaykum, {html.escape(name)}! 👋\n\n"
             "Bu <b>inson.lab</b> kitob do'koni. Psixologiyani mish-mishlardan emas, "
             "haqiqiy tadqiqotlardan o'rganing: har bob tajriba, raqam va hayotiy misol bilan.\n\n"
-            f"{lines}\n\n📱 Barcha kitoblar <b>elektron (PDF)</b>: qog'oz kitob emas. To'lovdan keyin fayl shu botga keladi, telefonda o'qiladi.\n\n🎁 Har kitobning boshi <b>bepul</b>: avval o'qing, yoqsa oling.{promo}")
+            f"{lines}\n\n📱 Barcha kitoblar <b>elektron (PDF)</b>: qog'oz kitob emas. To'lovdan keyin fayl shu botga keladi, telefonda o'qiladi.\n\n🎁 <b>Sotib olishdan oldin bepul o'qib ko'ring:</b> har kitobning mundarijasi va 2 ta to'liq bobi tekin. Yoqsa, to'liq kitobni olasiz.{promo}")
 
 
 @router.message(CommandStart())
@@ -988,8 +988,8 @@ async def fallback(m: Message, bot: Bot):
     await send_asset_photo(bot, m.chat.id, "welcome.jpg", welcome_text(m.from_user.first_name), books_kb())
 
 
-BOT_DESCRIPTION_TPL = '📚 inson.lab kitob do‘koni\n\nPsixologiyani mish-mishdan emas, haqiqiy tadqiqotlardan o‘rganing. 6 ta elektron kitob (PDF):\n\n🧵 Ko‘rinmas iplar — manipulyatsiyadan himoya\n❤️ Yurak algoritmi — sevgi ilmi\n👁 Indamas til — tana tili\n🎯 Ta’sir kodi — halol ishontirish\n💸 Pul miyasi — pul psixologiyasi\n🗺 Marketing xaritasi — biznes uchun\n\n🎁 Har kitobning boshi BEPUL — avval o‘qing, yoqsa oling.\n{PROMO}👇 Boshlash uchun «START» ni bosing'
-BOT_SHORT = '📚 inson.lab: psixologiya va marketing bo‘yicha 6 ta elektron kitob. Boshi bepul. Bepul parcha uchun START bosing.'
+BOT_DESCRIPTION_TPL = '📚 inson.lab kitob do‘koni\n\nPsixologiyani mish-mishdan emas, haqiqiy tadqiqotlardan o‘rganing. 6 ta elektron kitob (PDF):\n\n🧵 Ko‘rinmas iplar — manipulyatsiyadan himoya\n❤️ Yurak algoritmi — sevgi ilmi\n👁 Indamas til — tana tili\n🎯 Ta’sir kodi — halol ishontirish\n💸 Pul miyasi — pul psixologiyasi\n🗺 Marketing xaritasi — biznes uchun\n\n🎁 Sotib olishdan oldin BEPUL o‘qib ko‘ring: har kitobdan 2 ta bob tekin.\n{PROMO}👇 Boshlash uchun «START» ni bosing'
+BOT_SHORT = '📚 inson.lab: psixologiya va marketing bo‘yicha 6 ta elektron kitob. Har biridan 2 bob tekin — START bosing.'
 
 
 async def setup_profile(bot: Bot):
