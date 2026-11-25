@@ -412,7 +412,7 @@ def welcome_text(name):
     return (f"Assalomu alaykum, {html.escape(name)}! 👋\n\n"
             "Bu <b>inson.lab</b> kitob do'koni. Psixologiyani mish-mishlardan emas, "
             "haqiqiy tadqiqotlardan o'rganing: har bob tajriba, raqam va hayotiy misol bilan.\n\n"
-            f"{lines}\n\n🎁 Har kitobning boshi <b>bepul</b>: avval o'qing, yoqsa oling.{promo}")
+            f"{lines}\n\n📱 Barcha kitoblar <b>elektron (PDF)</b>: qog'oz kitob emas. To'lovdan keyin fayl shu botga keladi, telefonda o'qiladi.\n\n🎁 Har kitobning boshi <b>bepul</b>: avval o'qing, yoqsa oling.{promo}")
 
 
 @router.message(CommandStart())
@@ -465,7 +465,7 @@ async def show_slug(bot, chat_id, slug):
         b.adjust(1)
         each = slug_price("all") // 5
         cap = (f"🔥 <b>{BUNDLE['title']}</b>\n{BUNDLE['hook']}\n\n{lines}\n\n"
-               f"Jami {sum(b['pages'] for b in BOOKS)} bet, 120+ ilmiy tadqiqot.\n"
+               f"📱 5 ta elektron kitob (PDF) · jami {sum(b['pages'] for b in BOOKS)} bet · 120+ tadqiqot\n"
                f"Alohida olinsa: <s>{money(slug_price('b1') * 5)}</s>\n"
                f"{price_line('all')}\n✅ Bitta kitob ~{money(each)} ga tushadi")
         await send_asset_photo(bot, chat_id, "bundle.jpg", cap, b.as_markup())
@@ -473,7 +473,7 @@ async def show_slug(bot, chat_id, slug):
     bk = BY_SLUG[slug]
     bullets = "\n".join(f"• {x}" for x in bk["bullets"])
     cap = (f"{bk['emoji']} <b>{bk['title']}</b> — {bk['short']}\n\n<i>{bk['hook']}</i>\n\n{bk['about']}\n\n"
-           f"<b>Ichida:</b>\n{bullets}\n\n📄 {bk['pages']} bet · PDF · telefonda o'qiladi\n{price_line(slug)}")
+           f"<b>Ichida:</b>\n{bullets}\n\n📱 Elektron kitob (PDF) · {bk['pages']} bet · telefonda o'qiladi\n{price_line(slug)}")
     await send_asset_photo(bot, chat_id, f"book0{slug[1]}.jpg", cap, book_kb(slug))
 
 
@@ -581,11 +581,11 @@ async def quiz_answer(cq: CallbackQuery, bot: Bot):
 
 # ---------------- Xarid ----------------
 def pay_text(title, amount):
-    return (f"🛒 <b>Buyurtma: {title}</b>\n💰 To'lov: <b>{money(amount)}</b>\n\n"
+    return (f"🛒 <b>Buyurtma: {title}</b> (elektron PDF)\n💰 To'lov: <b>{money(amount)}</b>\n\n"
             f"<b>1.</b> Shu kartaga {money(amount)} o'tkazing (Click, Payme yoki bank ilovasi):\n"
             f"<code>{CARD_NUMBER}</code>  ← bosing, nusxa olinadi\n{CARD_HOLDER}\n\n"
             "<b>2.</b> To'lov chekining <b>rasmini</b> (skrinshot) shu chatga yuboring.\n\n"
-            "<b>3.</b> Tekshirilgach kitob shu yerga avtomatik keladi.\n\n"
+            "<b>3.</b> Tekshirilgach PDF fayl shu chatga avtomatik keladi.\n\n"
             f"Savol bo'lsa: @{ADMIN_USERNAME}")
 
 
