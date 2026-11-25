@@ -390,7 +390,20 @@ async def channel_loop(bot: Bot):
                     b.button(text=p["btn"], url=p["url"])
                     kb = b.as_markup()
                 try:
-                    if p.get("img"):
+                    if p.get("poll"):
+                        q = p["poll"]
+                        await bot.send_poll(CHANNEL, q["question"], q["options"], type="quiz",
+                                            correct_option_id=q["correct"], explanation=q.get("explanation"),
+                                            is_anonymous=True)
+                    elif p.get("album"):
+                        from aiogram.types import InputMediaPhoto
+                        d = os.path.join(ASSETS, "carousel", p["album"])
+                        files = sorted(os.listdir(d), key=lambda f: int(f.split(".")[0]))
+                        media = [InputMediaPhoto(media=FSInputFile(os.path.join(d, f)),
+                                                 caption=p["text"] if i == 0 else None,
+                                                 parse_mode="HTML" if i == 0 else None) for i, f in enumerate(files[:10])]
+                        await bot.send_media_group(CHANNEL, media)
+                    elif p.get("img"):
                         await bot.send_photo(CHANNEL, FSInputFile(os.path.join(ASSETS, "channel", p["img"])),
                                              caption=p["text"], reply_markup=kb)
                     else:

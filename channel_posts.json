@@ -8,11 +8,23 @@
   "url": "https://t.me/insonlabbot?start=free"
  },
  {
+  "id": "2026-11-25-fact",
+  "at": "2026-11-25T18:40",
+  "text": "🔬 <b>Bilasizmi?</b>\n\n1927-yilda psixolog Bluma Zeygarnik kafeda kuzatdi: ofitsiantlar to‘lanmagan buyurtmalarni yaxshi eslab qolar, to‘langanini esa darhol unutar edi. Keyingi tajribalarda odamlar <b>tugallanmagan</b> vazifalarni tugallanganlaridan ko‘proq esladi.\n\nBuni Zeygarnik effekti deyishadi. Keyinchalik takroriy tadqiqotlar effekt har doim ham kuchli emasligini ko‘rsatdi, lekin kundalik tajriba tanish: boshlangan, lekin tugamagan ish boshdan chiqmaydi.\n\n<b>Savol:</b> hozir boshingizda qaysi tugallanmagan ish aylanib yuribdi?\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
+  "btn": "📖 Kitoblardan bepul parcha",
+  "url": "https://t.me/insonlabbot?start=free"
+ },
+ {
   "id": "2026-11-25-txt",
   "at": "2026-11-25T20:23",
   "text": "🎁 <b>Nega har kitobdan 2 bobni bepul beramiz?</b>\n\nChunki PDF kitobni ko‘rmasdan sotib olish — xuddi qopdagi mushuk. Biz buni xohlamaymiz.\n\nHar bir parchada: kitob mundarijasi, kirish va <b>2 ta to‘liq bob</b>. O‘qing, uslub yoqadimi, foydalimi — o‘zingiz hal qilasiz.\n\nQanday olish mumkin:\n1. @insonlabbot ga kiring\n2. «🎁 Bepul parcha» tugmasini bosing\n3. Kitobni tanlang — PDF darhol keladi\n\n👉 <a href=\"https://t.me/insonlabbot?start=free\">Parchani hozir olish</a>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
   "btn": "📖 Bepul parchani olish",
   "url": "https://t.me/insonlabbot?start=free"
+ },
+ {
+  "id": "2026-11-25-eve",
+  "at": "2026-11-25T22:17",
+  "text": "🌙 <b>Kechki savol</b>\n\nBugun kimdir sizga nimadir dedi va siz kun bo‘yi shu haqida o‘yladingiz. Keyin u odam buni allaqachon unutgan bo‘lishi mumkin.\n\n<b>Bugun qaysi gap sizni eng ko‘p o‘ylantirdi va u shunga arziydimi?</b>\n\nJavob yozish shart emas. Faqat o‘ylab ko‘ring.\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>"
  },
  {
   "id": "2026-11-26-img",
@@ -23,11 +35,44 @@
   "url": "https://t.me/insonlabbot?start=b1"
  },
  {
+  "id": "2026-11-26-fact",
+  "at": "2026-11-26T12:17",
+  "text": "🔬 <b>Bilasizmi?</b>\n\n2000-yilda Kornell universitetida talabalarga uyat ko‘ylak kiyib, auditoriyaga kirishni so‘rashdi. Ular xonadagilarning taxminan <b>yarmi</b> ko‘ylakni payqaydi, deb o‘ylagan. Aslida uni taxminan <b>har to‘rtinchi</b> odam payqagan.\n\nBu <b>diqqat markazi effekti</b>: biz o‘zimizni boshqalar ko‘rganidan ancha ko‘proq «sahnada» deb his qilamiz.\n\nKiyimdagi dog‘, gapdagi xato, notiq chiqishdagi titroq — atrofdagilar ularni siz o‘ylagandan ancha kam sezadi.\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
+  "btn": "📖 Kitoblardan bepul parcha",
+  "url": "https://t.me/insonlabbot?start=free"
+ },
+ {
+  "id": "2026-11-26-quiz",
+  "at": "2026-11-26T15:37",
+  "poll": {
+   "question": "🧪 Viktorina: Ash tajribasida ishtirokchilarning qancha qismi kamida bir marta guruhning ochiq-oydin noto‘g‘ri javobiga qo‘shilgan?",
+   "options": [
+    "Taxminan 5%",
+    "Taxminan 25%",
+    "Taxminan 75%",
+    "Deyarli 100%"
+   ],
+   "correct": 2,
+   "explanation": "Taxminan 75% kamida bir marta guruhga ergashgan (Asch, 1950-yillar). Lekin ko‘pchilik javoblarda odamlar o‘z fikrida qolgan."
+  }
+ },
+ {
+  "id": "2026-11-26-album",
+  "at": "2026-11-26T18:13",
+  "album": "k1",
+  "text": "🧵 <b>Manipulyatorni fosh qiladigan 6 ta jumla</b>\n\n«Sen juda sezgirsan», «Men senga shuncha qildim», «Hazillashdim-ku!»... Har biri qanday ishlaydi va unga qanday javob berish kerak — karuselda.\n\n🔖 Saqlab qo‘ying, kerak bo‘ladi.\n\n👉 <a href=\"https://t.me/insonlabbot?start=b1\">To‘liq kitob va 2 bob bepul — @insonlabbot</a>"
+ },
+ {
   "id": "2026-11-26-txt",
   "at": "2026-11-26T20:23",
   "text": "🧭 <b>Qaysi kitob sizga mos?</b>\n\n5 ta kitob — 5 xil muammo. Qaysi biri sizniki?\n\n😶 Gapga solib, istamagan ishimga ko‘ndirishadi → <b>Ko‘rinmas iplar</b>\n💔 Munosabatimda tushunmovchilik ko‘p → <b>Yurak algoritmi</b>\n👁 Odamlarni ichidan tushunishni xohlayman → <b>Indamas til</b>\n🗣 Gapim o‘tmaydi → <b>Ta’sir kodi</b>\n💸 Pulim qayerga ketayotganini bilmayman → <b>Pul miyasi</b>\n\nBotda 1 savolga javob bering — mosini o‘zi tavsiya qiladi.\n👉 <a href=\"https://t.me/insonlabbot?start=quiz\">Testni boshlash</a>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
   "btn": "🧭 Testni boshlash",
   "url": "https://t.me/insonlabbot?start=quiz"
+ },
+ {
+  "id": "2026-11-26-eve",
+  "at": "2026-11-26T22:17",
+  "text": "🌙 <b>Kechki savol</b>\n\nBa’zan «yo‘q» deyish qiyin, chunki biz rad etilishdan qo‘rqamiz. Lekin har bir istamagan «ha» o‘zimizga aytilgan kichik «yo‘q».\n\n<b>Bugun kimga istamay «ha» dedingiz?</b>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>"
  },
  {
   "id": "2026-11-27-img",
@@ -38,11 +83,44 @@
   "url": "https://t.me/insonlabbot?start=b2"
  },
  {
+  "id": "2026-11-27-fact",
+  "at": "2026-11-27T12:17",
+  "text": "🔬 <b>Bilasizmi?</b>\n\n2003-yilda olimlar odamlarni oddiy kompyuter o‘yinida «chetga surib qo‘yishdi»: boshqa ikki o‘yinchi to‘pni ularga oshirmay qo‘ydi. Miya skanerida ijtimoiy rad etilish <b>jismoniy og‘riq bilan bog‘liq</b> hududlarning ayrimlarini ham faollashtirgan.\n\nShuning uchun e’tiborsiz qoldirilish, guruhdan chetlatilish yoki javobsiz xabar shunchaki «yoqimsiz» emas. U haqiqatan <b>og‘riydi</b>.\n\nKimnidir javobsiz qoldirishdan oldin buni eslang.\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
+  "btn": "📖 Kitoblardan bepul parcha",
+  "url": "https://t.me/insonlabbot?start=free"
+ },
+ {
+  "id": "2026-11-27-quiz",
+  "at": "2026-11-27T15:37",
+  "poll": {
+   "question": "🧪 Viktorina: Yangi odat avtomatik bo‘lishi uchun o‘rtacha qancha vaqt kerak?",
+   "options": [
+    "21 kun",
+    "66 kun",
+    "7 kun",
+    "1 yil"
+   ],
+   "correct": 1,
+   "explanation": "London tadqiqotida o‘rtacha 66 kun, odamga va odatga qarab 18 kundan 254 kungacha (Lally va boshq., 2009). «21 kun» — afsona."
+  }
+ },
+ {
+  "id": "2026-11-27-album",
+  "at": "2026-11-27T18:13",
+  "album": "k2",
+  "text": "❤️ <b>Sizni chin dildan sevishini ko‘rsatadigan 6 ta kichik belgi</b>\n\nGul va sovg‘a bu ro‘yxatda yo‘q. Psixologlar boshqa narsalarni o‘lchagan: e’tibor, quvonchga javob, janjaldagi hurmat.\n\n🔖 Saqlab qo‘ying va yaqiningizga yuboring.\n\n👉 <a href=\"https://t.me/insonlabbot?start=b2\">To‘liq kitob va 2 bob bepul — @insonlabbot</a>"
+ },
+ {
   "id": "2026-11-27-txt",
   "at": "2026-11-27T20:23",
   "text": "💬 <b>«Qara!» — munosabatni saqlaydigan so‘z</b>\n\nTurmush o‘rtog‘ingiz derazadan qarab: «Qara, qanday chiroyli qush!» deydi. Siz nima qilasiz?\n\na) Boshingizni ko‘tarib qaraysiz\nb) Telefondan ko‘z uzmay «hm» deysiz\n\nGotman buni <b>«bog‘lanish taklifi»</b> deb atagan. Har bir shunday kichik so‘rov — «menga e’tibor ber» degani. Javob bersangiz, ishonch omonatiga pul qo‘yasiz. E’tiborsiz qoldirsangiz — undan olasiz.\n\nBugun yaqiningiz «qara» desa — qarang. Qolgan qoidalar «Yurak algoritmi» kitobida.\n👉 <a href=\"https://t.me/insonlabbot?start=b2\">Bepul parchani o‘qish</a>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
   "btn": "📖 Bepul parchani olish",
   "url": "https://t.me/insonlabbot?start=b2"
+ },
+ {
+  "id": "2026-11-27-eve",
+  "at": "2026-11-27T22:17",
+  "text": "🌙 <b>Kechki savol</b>\n\nYaqinlarimiz bizdan katta ishlar emas, ko‘pincha bitta kichik narsani kutadi: tinglanishni.\n\n<b>Bugun kimni chin dildan, telefonsiz tingladingiz?</b>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>"
  },
  {
   "id": "2026-11-28-img",
@@ -53,11 +131,44 @@
   "url": "https://t.me/insonlabbot?start=b3"
  },
  {
+  "id": "2026-11-28-fact",
+  "at": "2026-11-28T12:17",
+  "text": "🔬 <b>Bilasizmi?</b>\n\nOlimlar odamlarga IKEA qutisini o‘zlari yig‘ishni taklif qilishdi. Keyin ulardan o‘z qo‘li bilan yig‘ilgan qutiga qancha pul berishga tayyorligini so‘rashdi. Ular tayyor yig‘ilgan xuddi shunday quti uchun boshqalardan <b>sezilarli darajada ko‘proq</b> to‘lashga tayyor bo‘lgan.\n\nBu <b>IKEA effekti</b> (Norton, Mochon, Ariely, 2012): o‘zimiz mehnat qilgan narsani qadrliroq ko‘ramiz.\n\nShuning uchun mijozni jarayonga qo‘shgan biznes ko‘proq sodiqlik oladi. Va shuning uchun o‘z loyihamizdagi kamchilikni ko‘rish qiyin.\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
+  "btn": "📖 Kitoblardan bepul parcha",
+  "url": "https://t.me/insonlabbot?start=free"
+ },
+ {
+  "id": "2026-11-28-quiz",
+  "at": "2026-11-28T15:37",
+  "poll": {
+   "question": "🧪 Viktorina: Danning–Kryuger tajribasida mantiq testida eng past natija ko‘rsatganlar o‘zlarini o‘rtacha nechanchi persentilda deb baholagan?",
+   "options": [
+    "12-persentil",
+    "35-persentil",
+    "62-persentil",
+    "90-persentil"
+   ],
+   "correct": 2,
+   "explanation": "Ular o‘zlarini taxminan 62-persentilda deb o‘ylagan, aslida esa taxminan 12-persentilda bo‘lgan (Kruger, Dunning, 1999)."
+  }
+ },
+ {
+  "id": "2026-11-28-album",
+  "at": "2026-11-28T18:13",
+  "album": "k3",
+  "text": "👁 <b>Tana tili haqida 6 ta mif</b>\n\n«Ko‘zini olib qochsa — yolg‘on», «qo‘lini qovushtirsa — yopiq», «muloqotning 93% i tana tili»... Ilm bular haqida nima deydi — karuselda.\n\n🔖 Saqlab qo‘ying.\n\n👉 <a href=\"https://t.me/insonlabbot?start=b3\">To‘liq kitob va 2 bob bepul — @insonlabbot</a>"
+ },
+ {
   "id": "2026-11-28-txt",
   "at": "2026-11-28T20:23",
   "text": "🔍 <b>Tana tilidagi 3 ta mif</b>\n\n<b>1. «Ko‘zini olib qochsa — yolg‘on gapiryapti».</b> Yuzlab tadqiqotlar tahlilida ko‘z olib qochish yolg‘onning ishonchli belgisi bo‘lib chiqmagan.\n\n<b>2. «Qo‘lini qovushtirsa — yopiq odam».</b> Ko‘pincha u shunchaki sovqotgan yoki shunday o‘tirish qulay.\n\n<b>3. «Odamni bir qarashda o‘qish mumkin».</b> Bitta belgi hech narsani isbotlamaydi. Ma’no faqat kontekst va o‘zgarishlarda.\n\nNima haqiqatan ishlashini «Indamas til» kitobida yozdik.\n👉 <a href=\"https://t.me/insonlabbot?start=b3\">Bepul parchani o‘qish</a>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
   "btn": "📖 Bepul parchani olish",
   "url": "https://t.me/insonlabbot?start=b3"
+ },
+ {
+  "id": "2026-11-28-eve",
+  "at": "2026-11-28T22:17",
+  "text": "🌙 <b>Kechki savol</b>\n\nBiz ko‘pincha odamni bitta harakati bo‘yicha baholaymiz: bitta qarash, bitta so‘z, bitta kechikish.\n\n<b>Kimni bugun bitta lahza bo‘yicha baholadingiz? Ehtimol, uning boshqa sababi bordir?</b>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>"
  },
  {
   "id": "2026-11-29-img",
@@ -68,11 +179,44 @@
   "url": "https://t.me/insonlabbot?start=b4"
  },
  {
+  "id": "2026-11-29-fact",
+  "at": "2026-11-29T12:17",
+  "text": "🔬 <b>Bilasizmi?</b>\n\n2007-yilda Kaliforniya universiteti olimlari bir guruh odamni 35 soat uxlatmay qo‘yishdi. Keyin ularga yoqimsiz rasmlar ko‘rsatilganda, miyaning qo‘rquv va hissiyot markazi — bodomsimon tana — uxlagan guruhga qaraganda taxminan <b>60% kuchliroq</b> javob bergan.\n\nUyqusiz odam o‘zi sezmasdan <b>asabiyroq va ta’sirchanroq</b> bo‘ladi.\n\nMuhim gap yoki janjalni ertalabga qoldirish — zaiflik emas, aql.\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
+  "btn": "📖 Kitoblardan bepul parcha",
+  "url": "https://t.me/insonlabbot?start=free"
+ },
+ {
+  "id": "2026-11-29-quiz",
+  "at": "2026-11-29T15:37",
+  "poll": {
+   "question": "🧪 Viktorina: Murabbo tajribasida 24 xil murabbo bo‘lganda stolga to‘xtaganlarning necha foizi sotib olgan?",
+   "options": [
+    "3%",
+    "15%",
+    "30%",
+    "60%"
+   ],
+   "correct": 0,
+   "explanation": "24 xilda — atigi 3%, 6 xilda esa 30% (Iyengar, Lepper, 2000). Ko‘p tanlov e’tiborni tortadi, lekin qarorni qiyinlashtiradi."
+  }
+ },
+ {
+  "id": "2026-11-29-album",
+  "at": "2026-11-29T18:13",
+  "album": "k4",
+  "text": "🎯 <b>Odamlarni ko‘ndiradigan 6 ta halol so‘z</b>\n\n«Chunki», «lekin qaror sizniki», «maslahatingiz kerak»... Har biri tadqiqot bilan tasdiqlangan va manipulyatsiyasiz ishlaydi.\n\n🔖 Saqlab qo‘ying, ertaga sinab ko‘ring.\n\n👉 <a href=\"https://t.me/insonlabbot?start=b4\">To‘liq kitob va 2 bob bepul — @insonlabbot</a>"
+ },
+ {
   "id": "2026-11-29-txt",
   "at": "2026-11-29T20:23",
   "text": "💸 <b>«Bepul» — eng qimmat narx</b>\n\nOlimlar ikki shokolad qo‘yishdi: qimmati 15 sent, oddiysi 1 sent. 73% odam qimmatini oldi.\nKeyin ikkalasini 1 sentga arzonlashtirishdi: 14 sent va <b>bepul</b>. Farq o‘sha-o‘sha. Lekin endi 69% bepulini oldi.\n\n«Bepul» so‘zi miyada hisob-kitobni o‘chiradi.\n\n<b>Qoida:</b> «bepul»ni ko‘rganingizda uni xayolan 1 000 so‘m deb tasavvur qiling. Shunda ham olarmidingiz?\n\nBu va yana 6 ta qoida — «Pul miyasi» kitobida.\n👉 <a href=\"https://t.me/insonlabbot?start=b5\">Bepul parchani o‘qish</a>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
   "btn": "📖 Bepul parchani olish",
   "url": "https://t.me/insonlabbot?start=b5"
+ },
+ {
+  "id": "2026-11-29-eve",
+  "at": "2026-11-29T22:17",
+  "text": "🌙 <b>Kechki savol</b>\n\nBa’zan bizni ko‘ndirishadi, chunki bahslashishga kuchimiz qolmaydi.\n\n<b>Oxirgi marta qachon charchaganingiz uchun «mayli» dedingiz?</b>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>"
  },
  {
   "id": "2026-11-30-img",
@@ -83,11 +227,44 @@
   "url": "https://t.me/insonlabbot?start=all"
  },
  {
+  "id": "2026-11-30-fact",
+  "at": "2026-11-30T12:17",
+  "text": "🔬 <b>Bilasizmi?</b>\n\n1978-yilda psixologlar katta lotereya yutganlarni oddiy odamlar bilan solishtirdi. Bir necha oydan keyin yutganlar oddiy odamlardan <b>sezilarli darajada baxtliroq bo‘lmagan</b>, kundalik mayda quvonchlardan esa kamroq zavqlanishgan.\n\nBuni <b>hedonik moslashuv</b> deyishadi: miya yangi yaxshi narsaga tez o‘rganib qoladi va u «oddiy» bo‘lib qoladi.\n\nShuning uchun yangi telefon emas, yangi taassurotlar va yaqinlar bilan vaqt ko‘proq quvonch beradi.\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
+  "btn": "📖 Kitoblardan bepul parcha",
+  "url": "https://t.me/insonlabbot?start=free"
+ },
+ {
+  "id": "2026-11-30-quiz",
+  "at": "2026-11-30T15:37",
+  "poll": {
+   "question": "🧪 Viktorina: Milgram tajribasida ishtirokchilarning qancha qismi «eng kuchli zarba»gacha borgan?",
+   "options": [
+    "Taxminan 1%",
+    "Taxminan 20%",
+    "Taxminan 65%",
+    "Taxminan 95%"
+   ],
+   "correct": 2,
+   "explanation": "Asl tajribada taxminan 65% oxirigacha borgan (Milgram, 1963). Zarbalar soxta edi, lekin ishtirokchilar buni bilmagan."
+  }
+ },
+ {
+  "id": "2026-11-30-album",
+  "at": "2026-11-30T18:13",
+  "album": "k5",
+  "text": "💸 <b>Pulingizni jimgina olayotgan 6 ta miya tuzog‘i</b>\n\n«Bepul», karta, ustidan chizilgan narx, «faqat bugun»... Oxirgisi har oy kartangizdan yechiladi.\n\n🔖 Saqlab qo‘ying.\n\n👉 <a href=\"https://t.me/insonlabbot?start=b5\">To‘liq kitob va 2 bob bepul — @insonlabbot</a>"
+ },
+ {
   "id": "2026-11-30-txt",
   "at": "2026-11-30T20:23",
   "text": "⏳ <b>Bir necha soat qoldi</b>\n\nBugun yarim tunda aksiya tugaydi. Qisqacha:\n\n• Bitta kitob: <b>39 000</b> (ertaga 49 000)\n• 5 tasi birga: <b>119 000</b> (ertaga 149 000)\n\nQanday olinadi: @insonlabbot → kitobni tanlang → kartaga o‘tkazing → chek rasmini yuboring. Tasdiqlangach kitob shu yerga keladi.\n\nHali ikkilanayotgan bo‘lsangiz — avval bepul parchani o‘qing.\n👉 <a href=\"https://t.me/insonlabbot?start=all\">To‘plam</a> · <a href=\"https://t.me/insonlabbot?start=free\">Bepul parcha</a>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
   "btn": "🔥 To'plamni olish",
   "url": "https://t.me/insonlabbot?start=all"
+ },
+ {
+  "id": "2026-11-30-eve",
+  "at": "2026-11-30T22:17",
+  "text": "🌙 <b>Kechki savol</b>\n\nOy tugayapti. Pul qayerga ketganini ko‘pincha eslay olmaymiz.\n\n<b>Shu oy qaysi xarid sizga haqiqiy quvonch berdi? Qaysi biri bermadi?</b>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>"
  },
  {
   "id": "2026-12-01-img",
@@ -98,10 +275,76 @@
   "url": "https://t.me/insonlabbot?start=quiz"
  },
  {
+  "id": "2026-12-01-fact",
+  "at": "2026-12-01T12:17",
+  "text": "🔬 <b>Bilasizmi?</b>\n\n1993-yilda Kaneman ishtirokchilardan qo‘lini ikki marta muzdek suvga solishni so‘radi: bir marta 60 soniya, bir marta 90 soniya (oxirgi 30 soniyada suv biroz iliqlashgan). Ikkinchisi uzunroq va og‘riqliroq edi. Lekin takrorlash uchun ko‘pchilik <b>aynan ikkinchisini</b> tanlagan.\n\nBu <b>cho‘qqi va oxir qoidasi</b>: biz tajribani eng kuchli lahzasi va <b>oxiri</b> bo‘yicha eslaymiz.\n\nUchrashuvni, darsni, mijoz bilan muloqotni yaxshi yakunlang — u shunday esda qoladi.\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
+  "btn": "📖 Kitoblardan bepul parcha",
+  "url": "https://t.me/insonlabbot?start=free"
+ },
+ {
+  "id": "2026-12-01-quiz",
+  "at": "2026-12-01T15:37",
+  "poll": {
+   "question": "🧪 Viktorina: Biror narsani ko‘p marta ko‘rsak, unga munosabatimiz odatda qanday o‘zgaradi?",
+   "options": [
+    "Ko‘proq yoqtira boshlaymiz",
+    "Zerikib, yoqtirmay qolamiz",
+    "O‘zgarmaydi",
+    "Unutamiz"
+   ],
+   "correct": 0,
+   "explanation": "Shunchaki ko‘rinish effekti: tanish narsa yoqimliroq tuyuladi (Zajonc, 1968). Lekin haddan oshsa, zerikish boshlanadi."
+  }
+ },
+ {
+  "id": "2026-12-01-album",
+  "at": "2026-12-01T18:13",
+  "album": "k6",
+  "text": "💼 <b>Mijoz sotib olmasligining 6 ta sababi</b>\n\nNarx — ro‘yxatda oxirgi o‘rinda. Tushunmaslik, ishonmaslik, qo‘rquv, ko‘p tanlov va kech javob — tadqiqotlar bilan.\n\n🔖 Biznesi bor do‘stingizga yuboring.\n\n👉 <a href=\"https://t.me/insonlabbot?start=b6\">To‘liq kitob va 2 bob bepul — @insonlabbot</a>"
+ },
+ {
   "id": "2026-12-01-txt",
   "at": "2026-12-01T20:23",
   "text": "❓ <b>Kitoblar haqida ko‘p so‘raladigan savollar</b>\n\n<b>Qanday formatda?</b> PDF. Telefonda, planshetda, kompyuterda o‘qiladi.\n<b>Qanday to‘layman?</b> Botdagi kartaga Click, Payme yoki bank ilovasi orqali o‘tkazasiz va chek rasmini yuborasiz.\n<b>Qachon keladi?</b> Chek tekshirilgach, kitob botning o‘ziga keladi.\n<b>Oldin ko‘rsam bo‘ladimi?</b> Ha. Har kitobning mundarijasi, kirishi va 2 bobi bepul.\n<b>Savol bo‘lsa?</b> Botdagi «💬 Savol berish» tugmasi.\n\n👉 <a href=\"https://t.me/insonlabbot\">@insonlabbot</a>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
   "btn": "📚 Botga kirish",
   "url": "https://t.me/insonlabbot"
+ },
+ {
+  "id": "2026-12-01-eve",
+  "at": "2026-12-01T22:17",
+  "text": "🌙 <b>Kechki savol</b>\n\nYangi oy — yangi boshlanish. Psixologlar buni «yangi boshlanish effekti» deyishadi: odamlar oy yoki hafta boshida maqsad boshlashga ko‘proq moyil.\n\n<b>Dekabrda bitta nimani boshlaysiz?</b>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>"
+ },
+ {
+  "id": "2026-12-02-fact",
+  "at": "2026-12-02T12:17",
+  "text": "🔬 <b>Bilasizmi?</b>\n\n1966-yilda psixolog Elliot Aronson talabalarga viktorinada juda yaxshi javob bergan ishtirokchining yozuvini eshittirdi. Ba’zi variantda oxirida u <b>kofeni ustiga to‘kib yuboradi</b>. Natija: kichik xato qilgan bilimdon odam <b>ko‘proq yoqgan</b>.\n\nBu <b>pratfall effekti</b>: kichik xato «mukammal» odamni insoniyroq qiladi. Lekin faqat u o‘zi bilimdon bo‘lsa: o‘rtacha odamga bu effekt yordam bermagan.\n\nMukammal ko‘rinishga urinmang. Inson bo‘ling.\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>",
+  "btn": "📖 Kitoblardan bepul parcha",
+  "url": "https://t.me/insonlabbot?start=free"
+ },
+ {
+  "id": "2026-12-02-quiz",
+  "at": "2026-12-02T15:37",
+  "poll": {
+   "question": "🧪 Viktorina: The Economist obunasi tajribasida «onlayn + bosma» variantini necha foiz tanlagan (yonida «faqat bosma» aldov varianti bo‘lganda)?",
+   "options": [
+    "16%",
+    "32%",
+    "50%",
+    "84%"
+   ],
+   "correct": 3,
+   "explanation": "84% (Ariyeli tajribasi). Aldov varianti olib tashlanganda bu ko‘rsatkich 32% ga tushgan."
+  }
+ },
+ {
+  "id": "2026-12-02-album",
+  "at": "2026-12-02T18:13",
+  "album": "k7",
+  "text": "👀 <b>Birinchi taassurot haqida 6 ta ilmiy fakt</b>\n\nBirinchisi — 0,1 soniya. Siz gapirishga ulgurmasdan baholanasiz. Lekin yaxshi xabar ham bor — 6-slaydda.\n\n🔖 Saqlab qo‘ying.\n\n👉 <a href=\"https://t.me/insonlabbot?start=b3\">To‘liq kitob va 2 bob bepul — @insonlabbot</a>"
+ },
+ {
+  "id": "2026-12-02-eve",
+  "at": "2026-12-02T22:17",
+  "text": "🌙 <b>Kechki savol</b>\n\nOdamlar bizni birinchi daqiqalarda baholaydi. Lekin biz o‘zimizni ham shunday tez baholaymiz — va ko‘pincha qattiqroq.\n\n<b>O‘zingiz haqingizda qaysi «birinchi taassurot»ni o‘zgartirish vaqti keldi?</b>\n\n<i>inson.lab — insonni shu yerda o‘rganamiz.</i>"
  }
 ]
